@@ -1,0 +1,23 @@
+.float-left {
+    margin-left: auto;
+}
+
+.float-right {
+    margin-right: auto;
+}
+
+.profile {
+    cursor: pointer;
+}
+
+@media screen and (max-width: 508px) {
+    .float-left {
+        display: none;
+    }
+}
+
+.header-title :hover {
+    color: #1e90ff;
+    cursor: pointer;
+    transition: 0.3s;
+}

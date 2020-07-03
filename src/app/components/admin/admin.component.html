@@ -1,0 +1,19 @@
+<nb-card>
+    <nb-card-header>
+        🍦Add An Ice Cream🍦
+    </nb-card-header>
+
+    <nb-card-body>
+        <input [(ngModel)]="name" type="text" nbInput fullWidth status="basic" placeholder="Ice Cream Name">
+        <div class="spacer"></div>
+        <input [(ngModel)]="price" type="text" nbInput fullWidth status="basic" placeholder="Ice Cream Price">
+        <div class="spacer"></div>
+        <input [(ngModel)]="photoURL" type="text" nbInput fullWidth status="basic" placeholder="Ice Cream Photo Url">
+        <div class="spacer"></div>
+
+        <nb-toggle (click)="toggled()" status="primary" checked="false">Favorite Ice Cream</nb-toggle>
+        <div class="spacer"></div>
+
+        <button nbButton status="primary" (click)="CreateIceCream()">Add Ice Cream</button>
+    </nb-card-body>
+</nb-card>

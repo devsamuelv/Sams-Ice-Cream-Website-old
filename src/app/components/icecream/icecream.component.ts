@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FirestoreService } from '../../services/firestore.service';
 
 @Component({
   selector: 'app-icecream',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IcecreamComponent implements OnInit {
 
-  constructor() { }
+  constructor(public fs: FirestoreService) { }
 
   ngOnInit() {
   }
+
+
 
 }

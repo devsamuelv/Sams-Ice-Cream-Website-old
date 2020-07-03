@@ -1,1 +1,31 @@
-<p>icecream works!</p>
+<div class="testOne">
+
+    <nb-card *ngFor="let icecream of fs.GetIceCream">
+        <nb-card-body>
+
+            <nb-user picture="{{icecream.photoURL}}" size="large" name="{{icecream.name}}" title="Per Scoop: {{icecream.price}}" badgeText="{{icecream.status}}" badgeStatus="warning" badgePosition="bottom right">
+            </nb-user>
+
+        </nb-card-body>
+    </nb-card>
+
+    <!-- <nb-card accent="info" class="icecream-card">
+        <nb-card-header style="text-align: center;">
+            SuperMan Ice Cream
+        </nb-card-header>
+
+        <nb-card-body>
+            <img class="icecream-image" src="https://www.icecreamclub.com/flavors/gallery/image1095.jpg" alt="">
+        </nb-card-body>
+    </nb-card>
+
+    <nb-card accent="info" class="icecream-card">
+        <nb-card-header style="text-align: center;">
+            SuperMan Ice Cream
+        </nb-card-header>
+
+        <nb-card-body>
+            <img class="icecream-image" src="https://www.icecreamclub.com/flavors/gallery/image1095.jpg" alt="">
+        </nb-card-body>
+    </nb-card> -->
+</div>

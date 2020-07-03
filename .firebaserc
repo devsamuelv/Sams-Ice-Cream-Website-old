@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "sams-ice-cream-1d478": {
+      "hosting": {
+        "samsicecream": [
+          "sams-ice-cream-1d478"
+        ]
+      }
+    }
+  }
+}
