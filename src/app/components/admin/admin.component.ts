@@ -63,9 +63,9 @@ export class AdminComponent implements OnInit {
   }
 
   public CreateIceCream() {
-    if (this.name.length < 2) { return; }
-    if (this.price.length < 2) { return; }
-    if (this.photoURL.length < 2) { return; }
+    if (this.name.length < 2) { this.ui.showError("Please Name Ice Cream"); return; }
+    if (this.price.length < 2) { this.ui.showError("Please Enter the price");  return; }
+    if (this.photoURL.length < 2) {  this.ui.showError("Please Enter PhotoUrl"); return; }
 
     this.fs.AddIceCream(this.name, this.price, this.photoURL, this.isToggled);
 

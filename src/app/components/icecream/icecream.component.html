@@ -1,10 +1,12 @@
 <div class="testOne">
 
     <nb-card *ngFor="let icecream of fs.GetIceCream">
-        <nb-card-body>
+        <nb-card-body style="display: inline-block;">
 
-            <nb-user picture="{{icecream.photoURL}}" size="large" name="{{icecream.name}}" title="Per Scoop: {{icecream.price}}" badgeText="{{icecream.status}}" badgeStatus="warning" badgePosition="bottom right">
+            <nb-user style="display: inline-block;" picture="{{icecream.photoURL}}" size="large" name="{{icecream.name}}" title="Per Scoop: {{icecream.price}}" badgeText="{{icecream.status}}" badgeStatus="warning" badgePosition="bottom right">
             </nb-user>
+
+            <button style="display: inline-block; float: right;" nbButton status="warning"> <nb-icon icon="edit-outline"></nb-icon> Edit</button>
 
         </nb-card-body>
     </nb-card>
