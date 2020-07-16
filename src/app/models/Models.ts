@@ -5,3 +5,12 @@ export interface IceCream {
     photoURL: string
     status: string
 }
+
+export interface Admin {
+    uid,
+    sentInvite: boolean,
+    name: string,
+    admin: boolean,
+    profileLogoURL: string
+    waiting: boolean,
+}

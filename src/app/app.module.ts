@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { IcecreamComponent } from './components/icecream/icecream.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NbThemeModule, NbLayoutModule, NbActionComponent, NbActionsModule, NbContextMenuModule, NbMenuModule, NbButtonComponent, NbButtonModule, NbCardModule, NbUserModule, NbInputModule, NbToggleModule, NbToastrModule } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbActionComponent, NbActionsModule, NbContextMenuModule, NbMenuModule, NbButtonComponent, NbButtonModule, NbCardModule, NbUserModule, NbInputModule, NbToggleModule, NbToastrModule, NbTableModule, NbTabComponent, NbTabsetModule, NbDialogModule, NbIconModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -14,6 +14,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AdminComponent } from './components/admin/admin.component';
 import { FormsModule } from '@angular/forms';
+import { AngularFireAuthModule, AngularFireAuth } from '@angular/fire/auth';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { FormsModule } from '@angular/forms';
     IcecreamComponent,
     NavbarComponent,
     FooterComponent,
-    AdminComponent
+    AdminComponent,
   ],
   imports: [
     AngularFireModule.initializeApp({
@@ -34,6 +35,7 @@ import { FormsModule } from '@angular/forms';
       messagingSenderId: "683898952965",
       appId: "1:683898952965:web:f322db4706ef6ad613eb6c"
     }),
+    AngularFireAuthModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -50,7 +52,10 @@ import { FormsModule } from '@angular/forms';
     NbToggleModule,
     NbToastrModule.forRoot(),
     AngularFirestoreModule,
-    FormsModule
+    FormsModule,
+    NbTabsetModule,
+    NbDialogModule.forRoot(),
+    NbIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

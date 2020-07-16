@@ -1,3 +1,31 @@
 .spacer {
     height: 10px;
 }
+
+.profile-logo {
+    display: inline-block;
+    height: 45px;
+    border-radius: 30px;
+    vertical-align: middle;
+}
+
+.profile-name {
+    margin-left: 10px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.user-card {
+    margin: 10px;
+    border: none;
+}
+
+.button {
+    margin-left: 10px;
+    text-decoration: none;
+    vertical-align: middle;
+}
+
+:host nb-tab {
+    padding: 1.25rem;
+}

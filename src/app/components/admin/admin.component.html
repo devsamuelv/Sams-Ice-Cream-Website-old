@@ -1,19 +1,85 @@
-<nb-card>
-    <nb-card-header>
-        🍦Add An Ice Cream🍦
-    </nb-card-header>
+<!-- 🍦Add An Ice Cream🍦 -->
 
+<nb-card *ngIf="auth.isSignedIn && fs.getAdmin">
     <nb-card-body>
-        <input [(ngModel)]="name" type="text" nbInput fullWidth status="basic" placeholder="Ice Cream Name">
-        <div class="spacer"></div>
-        <input [(ngModel)]="price" type="text" nbInput fullWidth status="basic" placeholder="Ice Cream Price">
-        <div class="spacer"></div>
-        <input [(ngModel)]="photoURL" type="text" nbInput fullWidth status="basic" placeholder="Ice Cream Photo Url">
-        <div class="spacer"></div>
+        <nb-tabset>
+            <nb-tab tabTitle="🍦Add An Ice Cream🍦">
+                <!-- <h2>🍦Add An Ice Cream🍦</h2> -->
 
-        <nb-toggle (click)="toggled()" status="primary" checked="false">Favorite Ice Cream</nb-toggle>
-        <div class="spacer"></div>
+                <input [(ngModel)]="name" type="text" nbInput fullWidth status="basic" placeholder="Ice Cream Name">
+                <div class="spacer"></div>
 
-        <button nbButton status="primary" (click)="CreateIceCream()">Add Ice Cream</button>
+                <input [(ngModel)]="price" type="text" nbInput fullWidth status="basic" placeholder="Ice Cream Price">
+                <div class="spacer"></div>
+
+                <input [(ngModel)]="photoURL" type="text" nbInput fullWidth status="basic" placeholder="Ice Cream Photo Url">
+                <div class="spacer"></div>
+
+                <nb-toggle (click)="toggled()" status="primary" checked="false">Favorite Ice Cream</nb-toggle>
+                <div class="spacer"></div>
+
+                <button nbButton status="primary" (click)="CreateIceCream()">Add Ice Cream</button>
+            </nb-tab>
+            <nb-tab tabTitle="Users">
+                <ng-template #dialog let-data let-ref="dialogRef">
+                    <nb-card>
+                        <nb-card-header>Invite Users</nb-card-header>
+
+                        <nb-card-body>
+                            <nb-card style="height: 20vh">
+                                <nb-card class="user-card" style="display: inline-block; overflow-y: none;" *ngFor="let user of adminArray">
+                                    <nav>
+                                        <img src="{{user.profileLogoURL}}" class="profile-logo" alt="logo">
+                                        <h1 class="profile-name">{{user.name}}</h1>
+
+                                        <button class="button" *ngIf="user.admin" outline nbButton status="success"> <nb-icon icon="done-all-outline"></nb-icon> Invited</button>
+                                        <button class="button" *ngIf="user.sentInvite" nbButton outline status="warning"> <nb-icon icon="alert-triangle-outline"></nb-icon> Waiting</button>
+                                        <button (click)="sendAdmin(user.uid)" class="button" *ngIf="!user.admin && !user.sentInvite" nbButton hero status="info">Invite</button>
+                                    </nav>
+                                </nb-card>
+                            </nb-card>
+                        </nb-card-body>
+                        <nb-card-footer>
+                            <button nbButton (click)="ref.close()">Close Dialog</button>
+                        </nb-card-footer>
+                    </nb-card>
+                </ng-template>
+                <button nbButton status="primary" (click)="open(dialog)">Invite Users</button>
+            </nb-tab>
+            <nb-tab tabTitle="Settings">
+                <button (click)="auth.logout()" nbButton hero status="danger">Logout</button>
+            </nb-tab>
+            <nb-tab tabTitle="Online Ordering" disabled>
+                <h1>Coming Soon</h1>
+            </nb-tab>
+        </nb-tabset>
+    </nb-card-body>
+</nb-card>
+
+
+<div *ngIf="!auth.isSignedIn" #notSignedin>
+    <nb-card>
+        <nb-card-body style="display: flex; justify-content: center;">
+            <button (click)="google()" style="margin-left: 10px;" nbButton status="primary"><nb-icon icon="google-outline"></nb-icon>Login With Google</button>
+            <div class="spacer"></div>
+
+            <button (click)="facebook()" style="margin-left: 10px;" nbButton status="primary"><nb-icon icon="facebook-outline"></nb-icon>Login With Facebook</button>
+            <div class="spacer"></div>
+        </nb-card-body>
+    </nb-card>
+</div>
+
+<div *ngIf="auth.isSignedIn && !fs.getWaiting && !fs.getAdmin" #requestInvite>
+    <nb-card>
+        <nb-card-body style="display: flex; justify-content: center;">
+            <!-- <button *ngIf="waiting" nbButton status="success"><nb-icon icon="done-all-outline"></nb-icon>Requested Admin from system Administrator</button> -->
+            <button (click)="setWaiting()" *ngIf="!fs.getWaiting" nbButton status="primary">Request Admin from system Administrator</button>
+        </nb-card-body>
+    </nb-card>
+</div>
+
+<nb-card *ngIf="fs.getWaiting && auth.isSignedIn && !fs.getAdmin">
+    <nb-card-body style="display: flex; justify-content: center;">
+        <h1>Waiting For Approval</h1>
     </nb-card-body>
 </nb-card>
