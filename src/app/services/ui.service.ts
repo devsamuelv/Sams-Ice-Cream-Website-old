@@ -19,6 +19,10 @@ export class UiService {
     this.toastrService.show(status, msg, { status: 'success' });
   }
 
+  public showError(msg: string) {
+    this.toastrService.show(status, msg, { status: 'danger' });
+  }
+
   public setEditMode(val: boolean) {
     this.editMode = val;
   }
