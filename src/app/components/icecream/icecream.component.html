@@ -6,28 +6,20 @@
             <nb-user style="display: inline-block;" picture="{{icecream.photoURL}}" size="large" name="{{icecream.name}}" title="Per Scoop: {{icecream.price}}" badgeText="{{icecream.status}}" badgeStatus="warning" badgePosition="bottom right">
             </nb-user>
 
-            <button style="display: inline-block; float: right;" nbButton status="warning"> <nb-icon icon="edit-outline"></nb-icon> Edit</button>
+            <input #testnumberone class="icecream-input" *ngIf="getEditMode" type="text" nbInput fullWidth status="warning" placeholder="{{icecream.name}}">
+
+            <input (change)="priceChange($event.testnumberone)" class="icecream-input" *ngIf="getEditMode" type="text" nbInput fullWidth status="warning" placeholder="{{icecream.price}}">
+
+
+            <!-- <button (click)="enableEditMode()" class="button" nbButton status="warning">
+                <nb-icon icon="edit-outline"></nb-icon> Edit
+            </button>
+
+            <button (click)="editIceCream(icecream.name, icecream.price)" class="button" nbButton status="success">
+                <nb-icon icon="save-outline"></nb-icon>Save
+            </button> -->
 
         </nb-card-body>
+
     </nb-card>
-
-    <!-- <nb-card accent="info" class="icecream-card">
-        <nb-card-header style="text-align: center;">
-            SuperMan Ice Cream
-        </nb-card-header>
-
-        <nb-card-body>
-            <img class="icecream-image" src="https://www.icecreamclub.com/flavors/gallery/image1095.jpg" alt="">
-        </nb-card-body>
-    </nb-card>
-
-    <nb-card accent="info" class="icecream-card">
-        <nb-card-header style="text-align: center;">
-            SuperMan Ice Cream
-        </nb-card-header>
-
-        <nb-card-body>
-            <img class="icecream-image" src="https://www.icecreamclub.com/flavors/gallery/image1095.jpg" alt="">
-        </nb-card-body>
-    </nb-card> -->
 </div>

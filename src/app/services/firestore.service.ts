@@ -57,6 +57,7 @@ export class FirestoreService {
     })
   }
 
+  // * check is the user is an admin
   public isAdmin(uid: string) {
     if (uid.length == 0 || uid == null) {
       uid =  localStorage.getItem('uid');
@@ -69,6 +70,7 @@ export class FirestoreService {
     return this.admin;
   }
 
+  // * set user as admin
   public async setAdmin(uid: string) {
     const setAdminData = {
       admin: true
@@ -149,6 +151,23 @@ export class FirestoreService {
     }
 
     this.adminCollection.doc(uid).set(AdminUser, { merge: true });
+  }
+
+  public editIceCream(defaultName: string, defaultPrice: string, name: string, price: string) {
+    this.iceCreamCollection.get().subscribe((data) => {
+      data.docs.forEach((doc) => {
+        if (doc.data().name == defaultName) {
+          const id = doc.id;
+
+          var data = {
+            name: name,
+            price: price
+          }
+
+          this.iceCreamCollection.doc(id).set(data, { merge: true });
+        }
+      })
+    })
   }
 
   public AddIceCream(name: string, price: string, photoURL: string, favorite: boolean) {
