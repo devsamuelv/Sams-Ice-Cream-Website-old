@@ -6,18 +6,32 @@
             <nb-user style="display: inline-block;" picture="{{icecream.photoURL}}" size="large" name="{{icecream.name}}" title="Per Scoop: {{icecream.price}}" badgeText="{{icecream.status}}" badgeStatus="warning" badgePosition="bottom right">
             </nb-user>
 
-            <input #testnumberone class="icecream-input" *ngIf="getEditMode" type="text" nbInput fullWidth status="warning" placeholder="{{icecream.name}}">
+            <input #testnumberone (change)="nameChange(testnumberone.value)" class="icecream-input" *ngIf="getEditMode" type="text" nbInput fullWidth status="warning" placeholder="{{icecream.name}}">
 
-            <input (change)="priceChange($event.testnumberone)" class="icecream-input" *ngIf="getEditMode" type="text" nbInput fullWidth status="warning" placeholder="{{icecream.price}}">
+            <input #testnumbertwo (change)="priceChange(testnumbertwo.value)" class="icecream-input" *ngIf="getEditMode" type="text" nbInput fullWidth status="warning" placeholder="{{icecream.price}}">
 
-
-            <!-- <button (click)="enableEditMode()" class="button" nbButton status="warning">
+            <button *ngIf="fs.getAdmin && fsauth.isSignedIn" (click)="enableEditMode()" class="button" nbButton status="warning">
                 <nb-icon icon="edit-outline"></nb-icon> Edit
             </button>
 
-            <button (click)="editIceCream(icecream.name, icecream.price)" class="button" nbButton status="success">
+            <button *ngIf="fs.getAdmin && fsauth.isSignedIn" (click)="editIceCream(icecream.name, icecream.price, icecream.id)" class="button" nbButton status="success">
                 <nb-icon icon="save-outline"></nb-icon>Save
-            </button> -->
+            </button>
+
+            <ng-template #dialog let-data let-ref="dialogRef">
+                <nb-card>
+                    <nb-card-header>
+                        Are you Sure You Want To Delete {{icecream.name}}
+                    </nb-card-header>
+
+                    <nb-card-body>
+                        <button (click)="delete(icecream.id, ref)" style="margin-right: 10px;" nbButton status="danger">Delete</button>
+                        <button (click)="ref.close()" nbButton status="primary">Cancel</button>
+                    </nb-card-body>
+                </nb-card>
+            </ng-template>
+
+            <button (click)="ui.openDialog(dialog)" *ngIf="fs.getAdmin && fsauth.isSignedIn" class="button" nbButton status="danger"> <nb-icon icon="trash-outline"></nb-icon> Delete</button>
 
         </nb-card-body>
 

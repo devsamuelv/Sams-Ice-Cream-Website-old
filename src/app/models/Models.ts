@@ -1,5 +1,5 @@
 export interface IceCream {
-    id?,
+    id: string,
     name: string,
     price: string,
     photoURL: string

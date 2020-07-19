@@ -4,7 +4,9 @@ import { AngularFirestoreCollection, AngularFirestoreDocument, AngularFirestore 
 import { map } from 'rxjs/operators';
 import { Admin, IceCream } from '../models/Models';
 import { Observable } from 'rxjs';
-import { User } from 'firebase';
+import { auth, User } from 'firebase';
+import { UiService } from './ui.service';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +25,7 @@ export class FirestoreService {
   private adminDoc: Observable<Admin[]>;
   private adminDocArray: Admin[];
 
-  constructor(private fs: AngularFirestore) { 
+  constructor(private fs: AngularFirestore, private ui: UiService) {
     this.iceCreamCollection = this.fs.collection('ice-cream');
     this.adminCollection = this.fs.collection('users');
 
@@ -60,11 +62,11 @@ export class FirestoreService {
   // * check is the user is an admin
   public isAdmin(uid: string) {
     if (uid.length == 0 || uid == null) {
-      uid =  localStorage.getItem('uid');
+      uid = localStorage.getItem('uid');
     }
 
     this.adminCollection.doc(uid).get().subscribe((data) => {
-      this.admin = data.data().admin; 
+      this.admin = data.data().admin;
     })
 
     return this.admin;
@@ -106,7 +108,7 @@ export class FirestoreService {
 
   public Waiting(uid: string) {
     if (uid.length == 0 || uid == null) {
-      uid =  localStorage.getItem('uid');
+      uid = localStorage.getItem('uid');
     }
 
     this.adminCollection.doc(uid).get().subscribe((user) => {
@@ -120,6 +122,10 @@ export class FirestoreService {
 
   public get getAdmin() {
     return this.admin;
+  }
+
+  public deleteIcecream(id: string) {
+    this.iceCreamCollection.doc(id).delete();
   }
 
   public UpdateAdminStatus(uid: string, admin: boolean, waiting: boolean) {
@@ -153,54 +159,49 @@ export class FirestoreService {
     this.adminCollection.doc(uid).set(AdminUser, { merge: true });
   }
 
-  public editIceCream(defaultName: string, defaultPrice: string, name: string, price: string) {
-    this.iceCreamCollection.get().subscribe((data) => {
-      data.docs.forEach((doc) => {
-        if (doc.data().name == defaultName) {
-          const id = doc.id;
+  public editIceCream(defaultName: string, defaultPrice: string, name: string, price: string, id: string) {
+    var data = {
+      name: name,
+      price: price
+    }
 
-          var data = {
-            name: name,
-            price: price
-          }
-
-          this.iceCreamCollection.doc(id).set(data, { merge: true });
-        }
-      })
-    })
+    this.iceCreamCollection.doc(id).set(data, { merge: true });
   }
+
 
   public AddIceCream(name: string, price: string, photoURL: string, favorite: boolean) {
 
-    var isFav = "";
+  var isFav = "";
+  const Generated_ID = Math.random().toString(36).substring(7);
 
-    if (favorite === true) {
-      isFav = "favorite";
-    }
-
-    if (favorite === false) {
-      isFav = "";
-    }
-
-    const data: IceCream = {
-      name: name,
-      price: price,
-      photoURL: photoURL,
-      status: isFav
-    }
-
-    this.iceCreamCollection.add(data).catch((err) => {
-      console.error(err);
-    })
+  if (favorite === true) {
+    isFav = "favorite";
   }
+
+  if (favorite === false) {
+    isFav = "";
+  }
+
+  const data: IceCream = {
+    name: name,
+    price: price,
+    photoURL: photoURL,
+    status: isFav,
+    id: Generated_ID
+  }
+
+  this.iceCreamCollection.doc(Generated_ID).set(data, { merge: true }).catch((err) => {
+    console.error(err);
+  })
+}
 
   public pullDatabase() {
-    this.iceCreamDoc.subscribe((data) => {
-      this.iceCreamDocArray = data;
-    })
-  }
+  this.iceCreamDoc.subscribe((data) => {
+    this.iceCreamDocArray = data;
+  })
+}
 
   public get GetIceCream() {
-    return this.iceCreamDocArray;
-  }
+  return this.iceCreamDocArray;
+}
 }
