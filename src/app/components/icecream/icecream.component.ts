@@ -4,11 +4,12 @@ import { NbDialogRef } from '@nebular/theme';
 import * as algoliasearch from 'algoliasearch';
 import { AuthService } from 'src/app/services/auth.service';
 import { UiService } from 'src/app/services/ui.service';
+import { environment } from 'src/environments/environment';
 import { FirestoreService } from '../../services/firestore.service';
 
 const searchClient = algoliasearch(
-  'PGMKTGVFVP',
-  'c3fc7f6756c023aafb513de66adab7e3'
+  environment.APP_ID,
+  environment.APP_READ_KEY
 );
 
 @Component({

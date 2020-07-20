@@ -4,10 +4,11 @@ import { connectAutocomplete } from 'instantsearch.js/es/connectors';
 import * as algoliasearch from 'algoliasearch/lite';
 import { IceCream } from 'src/app/models/Models';
 import { FirestoreService } from 'src/app/services/firestore.service';
+import { environment } from 'src/environments/environment';
 
 const searchClient = algoliasearch(
-  'PGMKTGVFVP',
-  'c3fc7f6756c023aafb513de66adab7e3'
+  environment.APP_ID,
+  environment.APP_READ_KEY,
 );
 
 @Component({
