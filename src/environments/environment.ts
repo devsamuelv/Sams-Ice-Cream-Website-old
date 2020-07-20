@@ -2,9 +2,13 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import * as dot from 'dotenv';
+
+dot.config();
+
 export const environment = {
   production: false,
-  ADMIN_KEY: "bb8e5622f46cc3f240f2eaffd4d35c7d",
+  ADMIN_KEY: process.env.ADMIN_KEY,
   APP_ID: "PGMKTGVFVP"
 };
 
