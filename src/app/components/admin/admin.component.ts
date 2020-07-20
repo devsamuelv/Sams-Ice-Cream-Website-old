@@ -5,6 +5,7 @@ import { UiService } from '../../services/ui.service';
 import { AuthService } from '../../services/auth.service';
 import { Admin } from 'src/app/models/Models';
 import { Router } from '@angular/router';
+import * as algoliasearch from 'algoliasearch';
 
 @Component({
   selector: 'app-admin',

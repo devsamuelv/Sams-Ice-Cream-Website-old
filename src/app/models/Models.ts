@@ -6,6 +6,14 @@ export interface IceCream {
     status: string
 }
 
+export interface AlgoliaObject {
+    name: string,
+    id: string,
+    photoURL: string,
+    status: boolean,
+    price: string
+}
+
 export interface Admin {
     uid,
     sentInvite: boolean,

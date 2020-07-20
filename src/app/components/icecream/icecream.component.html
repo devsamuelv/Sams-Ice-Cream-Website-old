@@ -1,6 +1,69 @@
 <div class="testOne">
+    <div class="ais-InstantSearch">
+        <ais-instantsearch [config]="config">
+            <div class="left-panel">
+                <h2>Ice Cream Flavors</h2>
+                <ais-current-refinements></ais-current-refinements>
+                <ais-refinement-list attribute="brand"></ais-refinement-list>
+                <ais-configure [searchParameters]="{ hitsPerPage: 8 }"></ais-configure>
+            </div>
+            <ais-instantsearch [config]="config">
+                <div class="searchbox">
+                    <app-autocomplete (onQuerySuggestionClick)="setQuery($event)"></app-autocomplete>
+                </div>
+            </ais-instantsearch>
+            <div class="spacer2"></div>
+            <div class="right-panel">
+                <ais-configure [searchParameters]="searchParameters"></ais-configure>
+                <ais-hits>
+                    <ng-template let-hits="hits">
+                        <div class="ais-Hits-list" style="width: 200%;">
+                            <nb-card *ngFor="let icecream of hits" class="ais-Hits-item">
+                                <nb-card-body style="display: inline-block;">
 
-    <nb-card *ngFor="let icecream of fs.GetIceCream">
+                                    <nb-user style="display: inline-block;" picture="{{icecream.photoURL}}" size="large" name="{{icecream.name}}" title="Per Scoop: {{icecream.price}}" badgeText="{{icecream.status}}" badgeStatus="warning" badgePosition="bottom right">
+                                    </nb-user>
+
+                                    <input #testnumberone (change)="nameChange(testnumberone.value)" class="icecream-input" *ngIf="getEditMode" type="text" nbInput fullWidth status="warning" placeholder="{{icecream.name}}">
+
+                                    <input #testnumbertwo (change)="priceChange(testnumbertwo.value)" class="icecream-input" *ngIf="getEditMode" type="text" nbInput fullWidth status="warning" placeholder="{{icecream.price}}">
+
+                                    <button *ngIf="fs.getAdmin && fsauth.isSignedIn" (click)="enableEditMode()" class="button" nbButton status="warning">
+                                            <nb-icon icon="edit-outline"></nb-icon> Edit
+                                        </button>
+
+                                    <button *ngIf="fs.getAdmin && fsauth.isSignedIn" (click)="editIceCream(icecream.name, icecream.price, icecream.id)" class="button" nbButton status="success">
+                                            <nb-icon icon="save-outline"></nb-icon>Save
+                                        </button>
+
+                                    <ng-template #dialog let-data let-ref="dialogRef">
+                                        <nb-card>
+                                            <nb-card-header>
+                                                Are you Sure You Want To Delete {{icecream.name}}
+                                            </nb-card-header>
+
+                                            <nb-card-body>
+                                                <button (click)="delete(icecream.id, ref)" style="margin-right: 10px;" nbButton status="danger">Delete</button>
+                                                <button (click)="ref.close()" nbButton status="primary">Cancel</button>
+                                            </nb-card-body>
+                                        </nb-card>
+                                    </ng-template>
+
+                                    <button (click)="ui.openDialog(dialog)" *ngIf="fs.getAdmin && fsauth.isSignedIn" class="button" nbButton status="danger"> <nb-icon icon="trash-outline"></nb-icon> Delete</button>
+
+                                </nb-card-body>
+
+                            </nb-card>
+                        </div>
+                    </ng-template>
+                </ais-hits>
+                <ais-pagination></ais-pagination>
+            </div>
+            <div class="spacer"></div>
+        </ais-instantsearch>
+    </div>
+
+    <!-- <nb-card *ngFor="let icecream of fs.GetIceCream">
         <nb-card-body style="display: inline-block;">
 
             <nb-user style="display: inline-block;" picture="{{icecream.photoURL}}" size="large" name="{{icecream.name}}" title="Per Scoop: {{icecream.price}}" badgeText="{{icecream.status}}" badgeStatus="warning" badgePosition="bottom right">
@@ -35,5 +98,5 @@
 
         </nb-card-body>
 
-    </nb-card>
+    </nb-card> -->
 </div>

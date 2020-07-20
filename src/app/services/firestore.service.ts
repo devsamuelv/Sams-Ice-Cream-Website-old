@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { auth, User } from 'firebase';
 import { UiService } from './ui.service';
 import { AuthService } from './auth.service';
+import { AlgoliaService } from './algolia.service';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,7 @@ export class FirestoreService {
   private adminDoc: Observable<Admin[]>;
   private adminDocArray: Admin[];
 
-  constructor(private fs: AngularFirestore, private ui: UiService) {
+  constructor(private fs: AngularFirestore, private ui: UiService, private Algolia: AlgoliaService) {
     this.iceCreamCollection = this.fs.collection('ice-cream');
     this.adminCollection = this.fs.collection('users');
 
@@ -189,6 +190,8 @@ export class FirestoreService {
     status: isFav,
     id: Generated_ID
   }
+
+  this.Algolia.CreateAlgoliaObject(name, price, photoURL, Generated_ID, favorite);
 
   this.iceCreamCollection.doc(Generated_ID).set(data, { merge: true }).catch((err) => {
     console.error(err);

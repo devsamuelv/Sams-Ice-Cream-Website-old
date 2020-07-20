@@ -1,24 +1,43 @@
 import { Element } from '@angular/compiler/src/render3/r3_ast';
-import { Component, ElementRef, Input, OnInit, TemplateRef } from '@angular/core';
+import { Component, ElementRef, EventEmitter, forwardRef, Inject, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { NbDialogRef } from '@nebular/theme';
+import * as algoliasearch from 'algoliasearch';
 import { AuthService } from 'src/app/services/auth.service';
 import { UiService } from 'src/app/services/ui.service';
 import { FirestoreService } from '../../services/firestore.service';
+
+const searchClient = algoliasearch(
+  'PGMKTGVFVP',
+  'c3fc7f6756c023aafb513de66adab7e3'
+);
 
 @Component({
   selector: 'app-icecream',
   templateUrl: './icecream.component.html',
   styleUrls: ['./icecream.component.scss']
 })
-export class IcecreamComponent implements OnInit {
+export class IcecreamComponent implements OnInit  {
 
   private editMode: boolean = false;
   public name: string = "";
   public price: string = "";
 
-  constructor(public fs: FirestoreService, public fsauth: AuthService, public ui: UiService) { }
+  constructor(public fs: FirestoreService, public fsauth: AuthService, public ui: UiService) {
+  }
 
-  ngOnInit() {
+  ngOnInit(){}
+
+  public searchParameters = {
+    query: ''
+  };
+
+  config = {
+    indexName: 'ice cream flavors',
+    searchClient
+  };
+
+  public setQuery({ query }: { query: string }) {
+    this.searchParameters.query = query;
   }
 
   public get getEditMode() {
@@ -64,7 +83,5 @@ export class IcecreamComponent implements OnInit {
         break;
     }
   }
-
-
 
 }
