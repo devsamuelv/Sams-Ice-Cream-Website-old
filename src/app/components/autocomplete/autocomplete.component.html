@@ -27,27 +27,27 @@
     </div>
 
     </nb-autocomplete> -->
-    <!-- 
+
     <input matInput [matAutocomplete]="auto" (keyup)="handleChange($event)" style="width: 100%; padding: 10px" />
     <mat-autocomplete #auto="matAutocomplete" style="margin-top: 30px; max-height: 600px">
-        <div *ngFor="let index of state.indices || []">
+        <div *ngFor="let index of state.indices || []" style="max-width: 100%;">
             <mat-option *ngFor="let option of index.hits" [value]="option.name" (click)="onQuerySuggestionClick.emit({ query: option.name })">
                 {{ option.name }}
             </mat-option>
         </div>
-    </mat-autocomplete> -->
+    </mat-autocomplete>
 
-    <input nbInput [nbAutocomplete]="auto" (keyup)="handleChange($event)" />
+    <!-- <input nbInput [nbAutocomplete]="auto" (keyup)="handleChange($event)" />
     <nb-autocomplete #auto style="margin-top: 30px; max-height: 600px;">
         <div *ngFor="let index of state.indices || []">
             <nb-option *ngFor="let option of index.hits" [value]="option.name" (click)="onQuerySuggestionClick.emit({ query: option.name })">
                 {{ option.name }}
             </nb-option>
         </div>
-    </nb-autocomplete>
+    </nb-autocomplete> -->
 
     <!--  -->
-    <!-- 
+    <!--     
     <input #autoInput nbInput type="text" (input)="onChange()" placeholder="Enter value" [nbAutocomplete]="auto" />
 
     <nb-autocomplete #auto (selectedChange)="onSelectionChange($event)">

@@ -30,12 +30,11 @@ export class AutocompleteComponent extends BaseWidget implements OnInit {
 
   constructor(@Inject(forwardRef(() => NgAisInstantSearch)) public instantSearchParent, public fs: FirestoreService) {
     super('AutocompleteComponent');
-    // this.index = searchClient.initIndex('ice cream flavors');
+    //this.index = searchClient.initIndex('ice cream flavors');
   }
 
-
   ngOnInit() {
-    this.createWidget(connectAutocomplete, {});
+    this.createWidget(connectAutocomplete);
     super.ngOnInit();
 
     console.log(this.state.indices)
