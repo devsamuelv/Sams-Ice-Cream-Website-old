@@ -38,9 +38,7 @@ export class AdminComponent implements OnInit {
   }
 
   public sendAdmin(uid: string) {
-    this.fs.setAdmin(uid).then((u) => {
-      this.router.navigate(['/admin']);
-    })
+    this.fs.setAdmin(uid);
   }
 
   open(dialog: TemplateRef<any>) {

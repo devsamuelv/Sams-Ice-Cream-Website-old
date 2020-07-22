@@ -15,6 +15,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AdminComponent } from './components/admin/admin.component';
 import { FormsModule } from '@angular/forms';
 import { AngularFireAuthModule, AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireFunctionsModule } from '@angular/fire/functions';
 import { NgAisInstantSearch, NgAisInstantSearchModule, NgAisModule } from 'angular-instantsearch';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
@@ -43,6 +44,7 @@ import { AutocompleteComponent } from './components/autocomplete/autocomplete.co
       appId: "1:683898952965:web:f322db4706ef6ad613eb6c"
     }),
     AngularFireAuthModule,
+    AngularFireFunctionsModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

@@ -8,6 +8,7 @@ import { auth, User } from 'firebase';
 import { UiService } from './ui.service';
 import { AuthService } from './auth.service';
 import { AlgoliaService } from './algolia.service';
+import { APIService } from './api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,7 @@ export class FirestoreService {
   private adminDoc: Observable<Admin[]>;
   private adminDocArray: Admin[];
 
-  constructor(private fs: AngularFirestore, private ui: UiService, private Algolia: AlgoliaService) {
+  constructor(private fs: AngularFirestore, private ui: UiService, private Algolia: AlgoliaService, private API: APIService) {
     this.iceCreamCollection = this.fs.collection('ice-cream');
     this.adminCollection = this.fs.collection('users');
 
@@ -75,12 +76,6 @@ export class FirestoreService {
 
   // * set user as admin
   public async setAdmin(uid: string) {
-    const setAdminData = {
-      admin: true
-    }
-
-    this.adminCollection.doc(uid).set(setAdminData, { merge: true });
-    this.isAdmin(uid);
   }
 
   public sendInvite(uid: string) {
@@ -172,31 +167,29 @@ export class FirestoreService {
 
   public AddIceCream(name: string, price: string, photoURL: string, favorite: boolean) {
 
-  var isFav = "";
-  const Generated_ID = Math.random().toString(36).substring(7);
+    var isFav = "";
+    const Generated_ID = Math.random().toString(36).substring(7);
 
-  if (favorite === true) {
-    isFav = "favorite";
+    if (favorite === true) {
+      isFav = "favorite";
+    }
+
+    if (favorite === false) {
+      isFav = "";
+    }
+
+    const data: IceCream = {
+      name: name,
+      price: price,
+      photoURL: photoURL,
+      status: isFav,
+      id: Generated_ID
+    }
+
+    this.Algolia.CreateAlgoliaObject(name, price, photoURL, Generated_ID, isFav);
+
+    this.API.SendRequest('createIceCream', data);
   }
-
-  if (favorite === false) {
-    isFav = "";
-  }
-
-  const data: IceCream = {
-    name: name,
-    price: price,
-    photoURL: photoURL,
-    status: isFav,
-    id: Generated_ID
-  }
-
-  this.Algolia.CreateAlgoliaObject(name, price, photoURL, Generated_ID, favorite);
-
-  this.iceCreamCollection.doc(Generated_ID).set(data, { merge: true }).catch((err) => {
-    console.error(err);
-  })
-}
 
   public pullDatabase() {
   this.iceCreamDoc.subscribe((data) => {

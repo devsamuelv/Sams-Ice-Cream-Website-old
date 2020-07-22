@@ -16,10 +16,10 @@ export class AlgoliaService {
 
   constructor() { }
 
-  public CreateAlgoliaObject(name: string, price: string, photoURL: string, id: string, isFavorite: boolean) {
+  public CreateAlgoliaObject(name: string, price: string, photoURL: string, id: string, isFavorite: string) {
     const index = searchClient.initIndex('ice cream flavors');
 
-    const data: { id: string, name: string, price: string, photoURL: string, status: boolean, objectID: string }[] = [
+    const data: { id: string, name: string, price: string, photoURL: string, status: string, objectID: string }[] = [
       { "id": id, "name": name, "photoURL": photoURL, "status": isFavorite, "price": price, objectID: id },
     ];
 
